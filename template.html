@@ -1,0 +1,788 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Your Name — Portfolio</title>
+
+    <!-- Closest match to the template’s typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Libre+Baskerville:wght@400;700&family=Montserrat:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        /* Palette inspired by the template */
+        --cream: #f3ebdd;
+        --cream-2: #efe4d2;
+        --olive: #6b7b4c;
+        --olive-2: #a9b88f;
+        --sage: #c9d6b8;
+        --brown: #a55b2a;
+        --orange: #c45a1d;
+        --ink: #2e2a25;
+
+        --h-font: "Cormorant Garamond", serif;
+        --b-font: "Libre Baskerville", serif;
+        --ui-font:
+          "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Arial,
+          sans-serif;
+
+        --radius: 18px;
+        --shadow: 0 18px 40px rgba(46, 42, 37, 0.12);
+        --max: 1120px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: linear-gradient(180deg, var(--cream), var(--cream-2));
+        font-family: var(--b-font);
+        line-height: 1.75;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .container {
+        width: min(var(--max), calc(100% - 48px));
+        margin-inline: auto;
+      }
+
+      /* Subtle paper texture using CSS only (no images) */
+      .paper {
+        position: relative;
+        isolation: isolate;
+      }
+      .paper::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background:
+          radial-gradient(
+            circle at 10% 20%,
+            rgba(255, 255, 255, 0.55),
+            transparent 40%
+          ),
+          radial-gradient(
+            circle at 90% 10%,
+            rgba(255, 255, 255, 0.35),
+            transparent 40%
+          ),
+          radial-gradient(
+            circle at 30% 80%,
+            rgba(255, 255, 255, 0.25),
+            transparent 40%
+          ),
+          radial-gradient(
+            circle at 70% 70%,
+            rgba(0, 0, 0, 0.05),
+            transparent 42%
+          );
+        opacity: 0.55;
+        pointer-events: none;
+      }
+
+      /* NAV */
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: rgba(243, 235, 221, 0.86);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(46, 42, 37, 0.08);
+      }
+      .nav-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 0;
+        gap: 16px;
+      }
+      .brand {
+        font-family: var(--h-font);
+        letter-spacing: 0.08em;
+        font-weight: 600;
+        font-size: 18px;
+        text-transform: uppercase;
+      }
+      .menu {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        font-family: var(--ui-font);
+        font-weight: 500;
+        font-size: 13px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        opacity: 0.9;
+      }
+      .menu a {
+        padding: 8px 6px;
+        border-radius: 10px;
+      }
+      .menu a:hover {
+        background: rgba(107, 123, 76, 0.08);
+        text-decoration: none;
+      }
+      .cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: var(--olive);
+        color: #fff;
+        font-family: var(--ui-font);
+        font-weight: 600;
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        box-shadow: 0 10px 22px rgba(107, 123, 76, 0.25);
+        white-space: nowrap;
+      }
+      .cta:hover {
+        filter: brightness(1.03);
+        text-decoration: none;
+      }
+
+      /* SECTION BASE */
+      section {
+        padding: 78px 0;
+        position: relative;
+      }
+      .section-title {
+        font-family: var(--h-font);
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        font-size: clamp(28px, 3.2vw, 44px);
+        margin: 0 0 12px;
+        color: rgba(46, 42, 37, 0.92);
+      }
+      .section-kicker {
+        font-family: var(--ui-font);
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        font-size: 12px;
+        color: rgba(46, 42, 37, 0.65);
+        margin: 0 0 10px;
+      }
+      .muted {
+        color: rgba(46, 42, 37, 0.72);
+      }
+
+      /* HERO */
+      .hero {
+        padding-top: 62px;
+        overflow: hidden;
+      }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 40px;
+        align-items: center;
+      }
+      .hero h1 {
+        font-family: var(--h-font);
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        line-height: 1.1;
+        font-size: clamp(40px, 4.3vw, 64px);
+        margin: 0 0 14px;
+      }
+      .hero p {
+        margin: 0 0 18px;
+        max-width: 56ch;
+      }
+      .quote {
+        margin-top: 22px;
+        padding: 16px 18px;
+        border-left: 3px solid rgba(196, 90, 29, 0.45);
+        background: rgba(255, 255, 255, 0.35);
+        border-radius: 12px;
+      }
+      .quote .qmarks {
+        font-family: var(--h-font);
+        font-size: 28px;
+        line-height: 1;
+        color: rgba(196, 90, 29, 0.7);
+      }
+
+      /* Image frame (replace with your photo) */
+      .portrait {
+        border-radius: 26px;
+        background: linear-gradient(
+          180deg,
+          rgba(169, 184, 143, 0.35),
+          rgba(255, 255, 255, 0.32)
+        );
+        border: 1px solid rgba(46, 42, 37, 0.1);
+        box-shadow: var(--shadow);
+        padding: 14px;
+      }
+      .portrait .img {
+        width: 100%;
+        aspect-ratio: 4 / 5;
+        border-radius: 18px;
+        background:
+          radial-gradient(
+            circle at 30% 30%,
+            rgba(255, 255, 255, 0.7),
+            transparent 50%
+          ),
+          linear-gradient(
+            135deg,
+            rgba(107, 123, 76, 0.18),
+            rgba(196, 90, 29, 0.1)
+          );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgba(46, 42, 37, 0.55);
+        font-family: var(--ui-font);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-size: 12px;
+        overflow: hidden;
+      }
+      /* If you want an actual image: put <img> inside .img and uncomment:
+    .portrait .img img{ width:100%; height:100%; object-fit:cover; display:block; }
+    */
+
+      /* BUTTONS */
+      .btn-row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 16px;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 11px 16px;
+        border-radius: 999px;
+        font-family: var(--ui-font);
+        font-weight: 600;
+        font-size: 12px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        border: 1px solid rgba(46, 42, 37, 0.12);
+        background: rgba(255, 255, 255, 0.45);
+      }
+      .btn.primary {
+        background: var(--olive);
+        color: #fff;
+        border-color: rgba(0, 0, 0, 0.08);
+        box-shadow: 0 12px 26px rgba(107, 123, 76, 0.22);
+      }
+      .btn:hover {
+        text-decoration: none;
+        filter: brightness(1.02);
+      }
+
+      /* FEATURED PROJECT */
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 44px;
+        align-items: center;
+      }
+      .device {
+        border-radius: 28px;
+        background: rgba(255, 255, 255, 0.38);
+        border: 1px solid rgba(46, 42, 37, 0.1);
+        box-shadow: var(--shadow);
+        padding: 18px;
+      }
+      .screen {
+        border-radius: 18px;
+        aspect-ratio: 4 / 3;
+        background:
+          linear-gradient(
+            180deg,
+            rgba(169, 184, 143, 0.35),
+            rgba(255, 255, 255, 0.28)
+          ),
+          radial-gradient(
+            circle at 60% 40%,
+            rgba(255, 255, 255, 0.5),
+            transparent 55%
+          );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--ui-font);
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(46, 42, 37, 0.55);
+      }
+
+      /* SKILLS / CARDS */
+      .band {
+        background: linear-gradient(
+          180deg,
+          rgba(201, 214, 184, 0.58),
+          rgba(201, 214, 184, 0.34)
+        );
+        border-top: 1px solid rgba(46, 42, 37, 0.07);
+        border-bottom: 1px solid rgba(46, 42, 37, 0.07);
+      }
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+        margin-top: 22px;
+      }
+      .card {
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.46);
+        border: 1px solid rgba(46, 42, 37, 0.1);
+        box-shadow: 0 10px 26px rgba(46, 42, 37, 0.08);
+        padding: 18px 18px 16px;
+      }
+      .icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        background: rgba(107, 123, 76, 0.14);
+        border: 1px solid rgba(107, 123, 76, 0.2);
+        margin-bottom: 12px;
+        font-family: var(--ui-font);
+        font-weight: 700;
+        color: rgba(46, 42, 37, 0.7);
+      }
+      .card h3 {
+        font-family: var(--h-font);
+        margin: 0 0 6px;
+        letter-spacing: 0.04em;
+        font-size: 22px;
+      }
+      .card p {
+        margin: 0;
+        color: rgba(46, 42, 37, 0.74);
+      }
+
+      /* VIDEO / DEMO */
+      .video {
+        border-radius: 28px;
+        background: rgba(255, 255, 255, 0.36);
+        border: 1px solid rgba(46, 42, 37, 0.1);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+      .video .thumb {
+        position: relative;
+        aspect-ratio: 16 / 9;
+        background:
+          radial-gradient(
+            circle at 40% 40%,
+            rgba(255, 255, 255, 0.62),
+            transparent 55%
+          ),
+          linear-gradient(
+            135deg,
+            rgba(196, 90, 29, 0.14),
+            rgba(107, 123, 76, 0.16)
+          );
+      }
+      .play {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+      }
+      .play button {
+        width: 84px;
+        height: 84px;
+        border-radius: 999px;
+        border: 1px solid rgba(46, 42, 37, 0.14);
+        background: rgba(243, 235, 221, 0.85);
+        box-shadow: 0 16px 28px rgba(46, 42, 37, 0.12);
+        cursor: pointer;
+      }
+      .play button:before {
+        content: "";
+        display: block;
+        width: 0;
+        height: 0;
+        margin-left: 4px;
+        border-left: 18px solid rgba(46, 42, 37, 0.72);
+        border-top: 12px solid transparent;
+        border-bottom: 12px solid transparent;
+      }
+      .video .body {
+        padding: 18px 20px 20px;
+      }
+
+      /* AVAILABILITY / CTA */
+      .cta-slab {
+        background: linear-gradient(
+          180deg,
+          rgba(201, 214, 184, 0.4),
+          rgba(243, 235, 221, 0)
+        );
+      }
+      .tilt {
+        transform: rotate(-6deg);
+      }
+
+      /* FOOTER */
+      footer {
+        background: linear-gradient(
+          180deg,
+          rgba(165, 91, 42, 0.96),
+          rgba(165, 91, 42, 0.92)
+        );
+        color: rgba(255, 255, 255, 0.9);
+        padding: 48px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+      }
+      .foot {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 20px;
+        align-items: start;
+      }
+      .foot .links {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        font-family: var(--ui-font);
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        font-size: 12px;
+      }
+      .social {
+        display: flex;
+        gap: 10px;
+        margin-top: 14px;
+      }
+      .pill {
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        padding: 10px 12px;
+        border-radius: 999px;
+        font-family: var(--ui-font);
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        background: rgba(0, 0, 0, 0.06);
+      }
+      .copyright {
+        margin-top: 18px;
+        font-size: 13px;
+        opacity: 0.85;
+      }
+
+      /* Decorative floating “leaf” dots (simple) */
+      .dots {
+        position: absolute;
+        right: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        opacity: 0.35;
+      }
+      .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 99px;
+        background: rgba(46, 42, 37, 0.35);
+      }
+
+      /* Responsive */
+      @media (max-width: 980px) {
+        .hero-grid,
+        .two-col {
+          grid-template-columns: 1fr;
+        }
+        .portrait {
+          max-width: 520px;
+          margin-inline: auto;
+        }
+        .cards {
+          grid-template-columns: 1fr;
+        }
+        .menu {
+          display: none;
+        }
+        .foot {
+          grid-template-columns: 1fr;
+        }
+        section {
+          padding: 62px 0;
+        }
+        .dots {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="paper">
+    <!-- NAV -->
+    <header class="nav">
+      <div class="container nav-inner">
+        <a class="brand" href="#top">Your Brand</a>
+
+        <nav class="menu" aria-label="Primary">
+          <a href="#about">About</a>
+          <a href="#projects">Projects</a>
+          <a href="#skills">Skills</a>
+          <a href="#demo">Demo</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <a class="cta" href="#contact">Download CV</a>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <main id="top">
+      <section class="hero">
+        <div class="container hero-grid">
+          <div>
+            <p class="section-kicker">Good morning</p>
+            <h1>I'm <span style="color: var(--olive)">Your Name</span>.</h1>
+            <p class="muted">
+              A <strong>creative developer</strong> (or security researcher /
+              designer) building calm, delightful digital experiences—focused on
+              clarity, craft, and impact.
+            </p>
+
+            <div class="btn-row">
+              <a class="btn primary" href="#projects">View work</a>
+              <a class="btn" href="#contact">Contact</a>
+            </div>
+
+            <div class="quote">
+              <div class="qmarks">“</div>
+              <div>
+                <strong>Optional quote:</strong> A short line about your
+                philosophy, mission, or what you love building.
+              </div>
+            </div>
+          </div>
+
+          <aside class="portrait" aria-label="Profile image">
+            <div class="img">
+              <!-- Replace this placeholder with your image:
+            <img src="assets/profile.jpg" alt="Portrait of Your Name" />
+            -->
+              Profile Image
+            </div>
+          </aside>
+        </div>
+
+        <div class="dots" aria-hidden="true">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+      </section>
+
+      <!-- FEATURED PROJECT -->
+      <section id="projects">
+        <div class="container two-col">
+          <div class="device">
+            <div class="screen">Project Screenshot / Mockup</div>
+          </div>
+
+          <div>
+            <p class="section-kicker">Celebrate and appreciate</p>
+            <h2 class="section-title">Selected Work</h2>
+            <p class="muted">
+              Write a short description of your featured project: the problem,
+              your approach, and the outcome. Keep it to ~3–5 lines like the
+              template.
+            </p>
+
+            <div class="btn-row">
+              <a class="btn primary" href="#" target="_blank" rel="noreferrer"
+                >Case study</a
+              >
+              <a class="btn" href="#" target="_blank" rel="noreferrer"
+                >Live demo</a
+              >
+              <a class="btn" href="#" target="_blank" rel="noreferrer"
+                >GitHub</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SKILLS BAND -->
+      <section id="skills" class="band">
+        <div class="container">
+          <p class="section-kicker">Interactive storytelling</p>
+          <h2 class="section-title">What I Do</h2>
+          <p class="muted" style="max-width: 70ch">
+            Add a short overview of your strengths. Keep it airy and
+            friendly—like the original template.
+          </p>
+
+          <div class="cards">
+            <article class="card">
+              <div class="icon">01</div>
+              <h3>Design</h3>
+              <p>
+                UI/UX, systems, prototypes, and thoughtful interaction design.
+              </p>
+            </article>
+
+            <article class="card">
+              <div class="icon">02</div>
+              <h3>Build</h3>
+              <p>Modern web apps with accessible, responsive components.</p>
+            </article>
+
+            <article class="card">
+              <div class="icon">03</div>
+              <h3>Ship</h3>
+              <p>
+                Performance, testing, docs, and smooth handoff to production.
+              </p>
+            </article>
+          </div>
+        </div>
+
+        <div class="dots" aria-hidden="true" style="top: 60%">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+      </section>
+
+      <!-- VIDEO / DEMO -->
+      <section id="demo">
+        <div class="container" style="max-width: 980px">
+          <p class="section-kicker">See how it works</p>
+          <h2 class="section-title">Demo / Walkthrough</h2>
+
+          <div class="video" role="group" aria-label="Demo video">
+            <div class="thumb">
+              <div class="play">
+                <!-- Optional: wire this button to open a modal or link to YouTube -->
+                <button type="button" aria-label="Play video"></button>
+              </div>
+            </div>
+            <div class="body">
+              <p class="muted" style="margin: 0">
+                Add a short explanation of what the viewer will learn from the
+                video or case study.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="dots" aria-hidden="true">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+      </section>
+
+      <!-- AVAILABILITY / CTA -->
+      <section class="cta-slab" id="about">
+        <div class="container two-col">
+          <div>
+            <p class="section-kicker">Both iOS and Android (adapt this)</p>
+            <h2 class="section-title">Available for Freelance & Remote</h2>
+            <p class="muted">
+              Replace this with your availability, preferred project types, and
+              what you’re currently looking for.
+            </p>
+
+            <div class="btn-row">
+              <a class="btn primary" href="#contact">Hire me</a>
+              <a class="btn" href="#projects">More projects</a>
+            </div>
+          </div>
+
+          <div class="device tilt" aria-label="Angled mockup">
+            <div class="screen">Mockup / Poster / Cover</div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer id="contact">
+      <div class="container foot">
+        <div>
+          <div class="brand" style="color: rgba(255, 255, 255, 0.95)">
+            Your Brand
+          </div>
+          <p style="margin: 10px 0 0; opacity: 0.9">
+            Short closing line. Email:
+            <a href="mailto:you@example.com">you@example.com</a>
+          </p>
+
+          <div class="social" aria-label="Social links">
+            <a class="pill" href="#" target="_blank" rel="noreferrer"
+              >Instagram</a
+            >
+            <a class="pill" href="#" target="_blank" rel="noreferrer"
+              >LinkedIn</a
+            >
+            <a class="pill" href="#" target="_blank" rel="noreferrer">GitHub</a>
+          </div>
+
+          <div class="copyright">
+            © <span id="year"></span> Your Name. All rights reserved.
+          </div>
+        </div>
+
+        <div>
+          <div class="links" aria-label="Footer navigation">
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#skills">Skills</a>
+            <a href="#demo">Demo</a>
+            <a href="#top">Top</a>
+          </div>
+
+          <p style="margin: 14px 0 0; opacity: 0.85">
+            Location: City, Country<br />
+            Timezone: +07:00 (edit)<br />
+            Status: Open to opportunities
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // small helper only (optional)
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
