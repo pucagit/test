@@ -445,6 +445,12 @@
         z-index: 10;
         box-shadow: 0 18px 48px rgba(46, 42, 37, 0.4);
       }
+      /* Larger hover effect for middle phones */
+      .phone:nth-child(2):hover,
+      .phone:nth-child(3):hover {
+        transform: scale(0.8) rotate(0deg) !important;
+        z-index: 10;
+      }
       .phone::before {
         content: "";
         position: absolute;
