@@ -383,56 +383,137 @@
         color: rgba(46, 42, 37, 0.74);
       }
 
-      /* VIDEO / DEMO */
-      .video {
-        border-radius: 28px;
-        background: rgba(255, 255, 255, 0.36);
-        border: 1px solid rgba(46, 42, 37, 0.1);
-        box-shadow: var(--shadow);
-        overflow: hidden;
+      /* PHONE WALL / DEMO */
+      .phone-wall {
+        display: grid;
+        grid-template-columns: 1fr 0.7fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 0px 24px;
+        margin-top: 10px;
+        max-width: 960px;
+        margin-inline: auto;
+        padding: 10px;
+        align-items: center;
       }
-      .video .thumb {
+      .phone {
+        border-radius: 28px;
+        background: linear-gradient(
+          180deg,
+          rgba(46, 42, 37, 0.85),
+          rgba(46, 42, 37, 0.92)
+        );
+        border: 2px solid rgba(46, 42, 37, 0.95);
+        box-shadow: 0 12px 32px rgba(46, 42, 37, 0.3);
+        padding: 6px 5px 6px;
         position: relative;
-        aspect-ratio: 16 / 9;
+        transition: all 0.3s ease;
+        width: 100%;
+      }
+      /* Left: 1 big phone */
+      .phone:nth-child(1) {
+        grid-column: 1;
+        grid-row: 1 / 3;
+        transform: rotate(-3deg);
+      }
+      /* Middle: 2 small phones stacked */
+      .phone:nth-child(2) {
+        grid-column: 2;
+        grid-row: 1;
+        transform: rotate(2deg) scale(0.75);
+        align-self: end;
+        margin-bottom: -30px;
+      }
+      .phone:nth-child(3) {
+        grid-column: 2;
+        grid-row: 2;
+        transform: rotate(-4deg) scale(0.75);
+        align-self: start;
+        margin-top: -30px;
+      }
+      /* Right: 1 big phone */
+      .phone:nth-child(4) {
+        grid-column: 3;
+        grid-row: 1 / 3;
+        transform: rotate(4deg);
+      }
+      /* Hide extra phones if more than 4 */
+      .phone:nth-child(n + 5) {
+        display: none;
+      }
+      .phone:hover {
+        transform: scale(1.08) rotate(0deg) !important;
+        z-index: 10;
+        box-shadow: 0 18px 48px rgba(46, 42, 37, 0.4);
+      }
+      .phone::before {
+        content: "";
+        position: absolute;
+        top: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        border-radius: 999px;
+        background: rgba(46, 42, 37, 0.6);
+      }
+      .phone-screen {
+        border-radius: 18px;
+        aspect-ratio: 9 / 16;
         background:
           radial-gradient(
-            circle at 40% 40%,
-            rgba(255, 255, 255, 0.62),
-            transparent 55%
+            circle at 50% 30%,
+            rgba(255, 255, 255, 0.15),
+            transparent 60%
           ),
           linear-gradient(
             135deg,
-            rgba(196, 90, 29, 0.14),
-            rgba(107, 123, 76, 0.16)
+            rgba(196, 90, 29, 0.25),
+            rgba(107, 123, 76, 0.22),
+            rgba(165, 91, 42, 0.2)
           );
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--ui-font);
+        font-size: 10px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.6);
       }
-      .play {
+      .phone-screen video,
+      .phone-screen img {
         position: absolute;
-        inset: 0;
-        display: grid;
-        place-items: center;
-      }
-      .play button {
-        width: 84px;
-        height: 84px;
-        border-radius: 999px;
-        border: 1px solid rgba(46, 42, 37, 0.14);
-        background: rgba(243, 235, 221, 0.85);
-        box-shadow: 0 16px 28px rgba(46, 42, 37, 0.12);
-        cursor: pointer;
-      }
-      .play button:before {
-        content: "";
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
         display: block;
-        width: 0;
-        height: 0;
-        margin-left: 4px;
-        border-left: 18px solid rgba(46, 42, 37, 0.72);
-        border-top: 12px solid transparent;
-        border-bottom: 12px solid transparent;
       }
-      .video .body {
-        padding: 18px 20px 20px;
+      .phone-screen::after {
+        content: "";
+        display: none;
+      }
+      /* Animated shimmer effect */
+      @keyframes shimmer {
+        0% {
+          background-position: -200% center;
+        }
+        100% {
+          background-position: 200% center;
+        }
+      }
+      .phone-screen.animated {
+        background: linear-gradient(
+          90deg,
+          rgba(196, 90, 29, 0.2) 0%,
+          rgba(255, 255, 255, 0.3) 50%,
+          rgba(107, 123, 76, 0.2) 100%
+        );
+        background-size: 200% 100%;
+        animation: shimmer 3s ease-in-out infinite;
       }
 
       /* AVAILABILITY / CTA */
@@ -524,6 +605,22 @@
         }
         .cards {
           grid-template-columns: 1fr;
+        }
+        .phone-wall {
+          grid-template-columns: 1fr;
+          gap: 20px;
+          padding: 10px;
+        }
+        .phone {
+          max-width: 280px;
+          margin-inline: auto;
+        }
+        .phone:nth-child(n) {
+          grid-column: 1 !important;
+          grid-row: auto !important;
+          align-self: center !important;
+          transform: rotate(0deg) !important;
+          display: block !important;
         }
         .menu {
           display: none;
@@ -680,25 +777,78 @@
         </div>
       </section>
 
-      <!-- VIDEO / DEMO -->
+      <!-- TIKTOK WALL / DEMO -->
       <section id="demo">
-        <div class="container" style="max-width: 980px">
-          <p class="section-kicker">See how it works</p>
-          <h2 class="section-title">Demo / Walkthrough</h2>
+        <div class="container">
+          <p class="section-kicker">Creative content</p>
+          <h2 class="section-title">My TikTok Videos</h2>
+          <p
+            class="muted"
+            style="text-align: center; max-width: 70ch; margin-inline: auto"
+          >
+            A collection of creative videos I've made—showcasing storytelling,
+            editing, and engaging content for social media.
+          </p>
 
-          <div class="video" role="group" aria-label="Demo video">
-            <div class="thumb">
-              <div class="play">
-                <!-- Optional: wire this button to open a modal or link to YouTube -->
-                <button type="button" aria-label="Play video"></button>
+          <div class="phone-wall">
+            <div class="phone">
+              <div class="phone-screen animated">
+                <!-- Replace with actual gif: <img src="tiktok1.gif" alt="TikTok video 1" /> -->
+                <video
+                  src="1.mp4"
+                  alt="TikTok video 1"
+                  autoplay
+                  muted
+                  loop
+                ></video>
+                Video 1
               </div>
             </div>
-            <div class="body">
-              <p class="muted" style="margin: 0">
-                Add a short explanation of what the viewer will learn from the
-                video or case study.
-              </p>
+
+            <div class="phone">
+              <div class="phone-screen animated" style="animation-delay: 0.3s">
+                <video
+                  src="2.mp4"
+                  alt="TikTok video 2"
+                  autoplay
+                  muted
+                  loop
+                ></video>
+                Video 2
+              </div>
             </div>
+
+            <div class="phone">
+              <div class="phone-screen animated" style="animation-delay: 0.6s">
+                <video
+                  src="3.mp4"
+                  alt="TikTok video 3"
+                  autoplay
+                  muted
+                  loop
+                ></video>
+                Video 3
+              </div>
+            </div>
+
+            <div class="phone">
+              <div class="phone-screen animated" style="animation-delay: 0.9s">
+                <video
+                  src="4.mp4"
+                  alt="TikTok video 4"
+                  autoplay
+                  muted
+                  loop
+                ></video>
+                Video 4
+              </div>
+            </div>
+
+            <!-- <div class="phone">
+              <div class="phone-screen animated" style="animation-delay: 1.2s">
+                Video 5
+              </div>
+            </div> -->
           </div>
         </div>
 
