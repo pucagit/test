@@ -779,25 +779,15 @@ section {
 .media-collage {
   position: relative;
   border-radius: var(--radius);
-  overflow: visible;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .media-collage .main-img {
-  width: 90%;
+  width: 100%;
+  height: 100%;
   border-radius: var(--radius);
-  background:
-    linear-gradient(
-      180deg,
-      rgba(169, 184, 143, 0.35),
-      rgba(255, 255, 255, 0.28)
-    ),
-    radial-gradient(
-      circle at 60% 40%,
-      rgba(255, 255, 255, 0.5),
-      transparent 55%
-    );
-  border: 0.5px solid rgba(46, 42, 37, 0.1);
-  box-shadow: var(--shadow);
-  aspect-ratio: 4 / 3;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -815,26 +805,23 @@ section {
   display: block;
 }
 
-/* Mini logos scattered */
+/* Mini logos */
 .mini-logos {
-  position: absolute;
-  bottom: -15px;
-  right: 40px;
+  position: relative;
   display: flex;
-  gap: -20px;
-  z-index: 5;
+  align-items: center;
+  justify-content: center;
 }
 .mini-logos .mini-logo {
-  width: 72px;
-  height: 72px;
+  width: 280px;
+  height: 280px;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  border-radius: 12px;
 }
 .mini-logos .mini-logo:nth-child(1) {
-  width: 95px;
-  height: 95px;
   animation: swayLeft 2.5s ease-in-out infinite;
   animation-delay: 0s;
 }
@@ -843,8 +830,8 @@ section {
   animation-delay: 0.3s;
 }
 .mini-logos .mini-logo img {
-  width: 100%;
-  height: 100%;
+  width: 85%;
+  height: 85%;
   object-fit: contain;
 }
 
@@ -1091,29 +1078,43 @@ section {
 }
 
 .skills-orbit {
+  --gap: 16px;
+  --duration: 22s;
+  --slide-h: clamp(120px, 14vw, 170px);
+  
   width: 100%;
   overflow: hidden;
   margin-inline: 0;
+  position: relative;
+  padding: 12px 0;
 }
 
 .orbit-ring {
-  --gap: 16px;
-  --visible: 4;
-  --step: calc(
-    (100% - (var(--gap) * (var(--visible) - 1))) / var(--visible) + var(--gap)
-  );
   display: flex;
-  align-items: center;
   gap: var(--gap);
-  width: 100%;
-  animation: horizontalSlide 18s ease-in-out infinite;
+  width: max-content;
+  animation: scrollSkills var(--duration) linear infinite;
+}
+
+/* Pause animation on hover */
+.skills-orbit:hover .orbit-ring {
+  animation-play-state: paused;
+}
+
+@keyframes scrollSkills {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-50% - (var(--gap) / 2)));
+  }
 }
 
 .orbit-item {
   position: relative;
-  flex: 0 0
-    calc((100% - (var(--gap) * (var(--visible) - 1))) / var(--visible));
-  height: clamp(120px, 14vw, 170px);
+  flex: 0 0 auto;
+  width: clamp(140px, 18vw, 200px);
+  height: var(--slide-h);
   border-radius: 10px;
   background: #fff;
   border: 0.5px solid rgba(46, 42, 37, 0.1);
@@ -1129,6 +1130,8 @@ section {
   max-height: 100%;
   object-fit: contain;
   display: block;
+  pointer-events: none;
+  user-select: none;
 }
 
 .cert-grid {
@@ -1162,26 +1165,8 @@ section {
   display: block;
 }
 
-@keyframes horizontalSlide {
-  0%,
-  12% {
-    transform: translateX(0);
-  }
-  20%,
-  32% {
-    transform: translateX(calc(var(--step) * -1));
-  }
-  40%,
-  52% {
-    transform: translateX(calc(var(--step) * -2));
-  }
-  60%,
-  72% {
-    transform: translateX(calc(var(--step) * -3));
-  }
-  100% {
-    transform: translateX(calc(var(--step) * -3));
-  }
+.skills-orbit {
+  touch-action: pan-y;
 }
 
 /* ===== NEW CSS - CONTACT LIST ===== */
@@ -1211,6 +1196,31 @@ section {
 }
 .at-a-glance strong {
   color: var(--ink);
+}
+
+.strengths-list {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+  color: rgba(46, 42, 37, 0.78);
+}
+
+.strengths-list li {
+  position: relative;
+  padding-left: 18px;
+}
+
+.strengths-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.78em;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(107, 123, 76, 0.75);
 }
 
 /* FOOTER */
