@@ -1070,45 +1070,118 @@ section {
 }
 
 /* ===== NEW CSS - LOGO GRID (Skills & Certs) ===== */
-.logo-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-  margin-top: 22px;
-}
-.logo-grid .logo-card {
-  border-radius: 22px;
-  background: rgba(255, 255, 255, 0.46);
-  border: 0.5px solid rgba(46, 42, 37, 0.1);
-  box-shadow: 0 10px 26px rgba(46, 42, 37, 0.08);
-  padding: 22px 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  text-align: center;
-}
 .logo-card .logo-img {
-  width: 60px;
-  height: 60px;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  padding: 6px;
 }
 .logo-card .logo-img img {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
 }
-.logo-card .logo-label {
-  font-family: var(--ui-font);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: rgba(46, 42, 37, 0.7);
+
+.skills-row {
+  display: block;
+  margin-top: 10px;
+}
+
+.skills-orbit {
+  width: 100%;
+  overflow: hidden;
+  margin-inline: 0;
+}
+
+.orbit-ring {
+  --gap: 16px;
+  --visible: 4;
+  --step: calc(
+    (100% - (var(--gap) * (var(--visible) - 1))) / var(--visible) + var(--gap)
+  );
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+  width: 100%;
+  animation: horizontalSlide 18s ease-in-out infinite;
+}
+
+.orbit-item {
+  position: relative;
+  flex: 0 0
+    calc((100% - (var(--gap) * (var(--visible) - 1))) / var(--visible));
+  height: clamp(120px, 14vw, 170px);
+  border-radius: 10px;
+  background: #fff;
+  border: 0.5px solid rgba(46, 42, 37, 0.1);
+  box-shadow: 0 6px 14px rgba(46, 42, 37, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+}
+
+.orbit-item img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.cert-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.cert-grid .logo-card {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  background: #fff;
+  border: 0.5px solid rgba(46, 42, 37, 0.1);
+  box-shadow: 0 6px 14px rgba(46, 42, 37, 0.08);
+  padding: 0;
+  display: block;
+  overflow: hidden;
+}
+
+.cert-grid .logo-card .logo-img {
+  padding: 0;
+}
+
+.cert-grid .logo-card .logo-img img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+@keyframes horizontalSlide {
+  0%,
+  12% {
+    transform: translateX(0);
+  }
+  20%,
+  32% {
+    transform: translateX(calc(var(--step) * -1));
+  }
+  40%,
+  52% {
+    transform: translateX(calc(var(--step) * -2));
+  }
+  60%,
+  72% {
+    transform: translateX(calc(var(--step) * -3));
+  }
+  100% {
+    transform: translateX(calc(var(--step) * -3));
+  }
 }
 
 /* ===== NEW CSS - CONTACT LIST ===== */
@@ -1222,8 +1295,21 @@ footer {
   .cards {
     grid-template-columns: 1fr;
   }
-  .logo-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .skills-row {
+    margin-top: 8px;
+  }
+  .skills-orbit {
+    width: 100%;
+  }
+  .orbit-ring {
+    --gap: 10px;
+    --visible: 3;
+  }
+  .orbit-item {
+    height: clamp(95px, 28vw, 130px);
+  }
+  .cert-grid {
+    gap: 12px;
   }
   .gallery {
     grid-template-columns: repeat(2, 1fr);
